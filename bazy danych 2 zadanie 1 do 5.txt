@@ -1,0 +1,97 @@
+Zadanie 1:
+
+DELETE FROM postac WHERE id_postaci = 4;
+DELETE FROM postac WHERE id_postaci = 8;
+
+ALTER TABLE walizka DROP FOREIGN KEY id_postaci;
+
+Usuwanie Foreign key-ów: (SHOW CREATE TABLE...)
+
+ALTER TABLE walizka DROP FOREIGN KEY walizka_ibfk_1;
+ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_1;
+ALTER TABLE przetwory DROP FOREIGN KEY przetwory_ibfk_2;
+ALTER TABLE postac DROP FOREIGN KEY postac_ibfk_1;
+
+
+ALTER TABLE postac MODIFY id_postaci INT NOT NULL;
+ALTER TABLE postac DROP PRIMARY KEY;
+
+
+Zadanie 2:
+
+-------------------------------------
+ALTER TABLE postac DROP COLUMN pesel;
+-------------------------------------
+
+
+=============================================================
+
+ALTER TABLE postac ADD pesel int primary key auto_increment;
+ALTER TABLE postac MODIFY COLUMN pesel VARCHAR(11);
+
+=============================================================
+
+ALTER TABLE postac MODIFY COLUMN rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena');
+
+INSERT INTO postac (id_postaci, nazwa, rodzaj, data_ur, wiek, pesel) VALUES (4, 'Gertruda_Nieszczera', 'syrena', '1999-09-09', 25, '99280909321');
+
+
+Zadanie 3:
+
+UPDATE statek SET data_wodowania = '1999-11-12' WHERE nazwa_statku = 'Elopnik';
+UPDATE statek SET data_wodowania = '1999-11-12' WHERE nazwa_statku = 'Wyebutnik';
+
+UPDATE postac SET nazwa_statku = 'Elopnik' WHERE nazwa LIKE '%a%';
+
+UPDATE statek SET max_ladownosc = '1000' WHERE nazwa_statku = 'Elopnik';
+UPDATE statek SET max_ladownosc = '800' WHERE nazwa_statku = 'Wyebutnik';
+
+SELECT max_ladownosc * 0.7 FROM statek;
+
+ALTER TABLE postac ADD CHECK (wiek<100);
+ALTER TABLE postac ADD CONSTRAINT CHECK_wiek CHECK (wiek<100);
+
+
+Zadanie 4:
+
+ALTER TABLE postac MODIFY COLUMN rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena', 'waz');
+INSERT INTO postac (id_postaci, nazwa, rodzaj, data_ur, wiek, pesel) VALUES (8, 'Loko', 'waz', '2021-08-16', 3, '21282021476');
+
+create table marynarz(id_postaci INTEGER, nazwa VARCHAR(40), rodzaj ENUM('wiking','ptak','kobieta', 'syrena', 'waz'), funkcja VARCHAR(40), data_ur DATE, wiek SMALLINT unsigned, nazwa_statku VARCHAR(40), FOREIGN KEY (nazwa_statku) REFERENCES statek(nazwa_statku));
+
+ALTER TABLE marynarz ADD pesel int primary key auto_increment;
+ALTER TABLE marynarz MODIFY COLUMN pesel VARCHAR(11);
+
+INSERT INTO marynarz SELECT * FROM postac WHERE nazwa_statku = 'Elopnik';
+INSERT INTO marynarz SELECT * FROM postac WHERE nazwa_statku = 'Wyebutnik';
+
+Zadanie 5:
+
+UPDATE postac SET nazwa_statku = NULL WHERE id_postaci = 1;
+UPDATE postac SET nazwa_statku = NULL WHERE id_postaci = 2;
+UPDATE postac SET nazwa_statku = NULL WHERE id_postaci = 3;
+UPDATE postac SET nazwa_statku = NULL WHERE id_postaci = 4;
+UPDATE postac SET nazwa_statku = NULL WHERE id_postaci = 5;
+UPDATE postac SET nazwa_statku = NULL WHERE id_postaci = 6;
+UPDATE postac SET nazwa_statku = NULL WHERE id_postaci = 7;
+
+DELETE FROM postac WHERE id_postaci = 7;
+
+ALTER TABLE marynarz DROP FOREIGN KEY marynarz_ibfk_1;
+
+ALTER TABLE statek DROP PRIMARY KEY;
+
+DELETE FROM statek WHERE nazwa_statku = 'Elopnik';
+
+DELETE FROM statek WHERE nazwa_statku = 'Wyebutnik';
+
+DROP TABLE statek;
+
+create table zwierz(id int primary key auto_increment, nazwa VARCHAR(40), wiek int);
+
+INSERT INTO zwierz (nazwa, wiek) VALUES ('Drozd', '1'), ('Loko', '3');
+
+
+
+
+CREATE TABLE (...) LIKE (np. postac) - kopia tabeli postac.
