@@ -77,6 +77,8 @@ UPDATE postac SET nazwa_statku = NULL WHERE id_postaci = 7;
 
 DELETE FROM postac WHERE id_postaci = 7;
 
+DELETE FROM marynarz WHERE id_postaci = 7;
+
 ALTER TABLE marynarz DROP FOREIGN KEY marynarz_ibfk_1;
 
 ALTER TABLE statek DROP PRIMARY KEY;
