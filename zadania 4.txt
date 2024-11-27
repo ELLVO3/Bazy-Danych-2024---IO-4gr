@@ -1,0 +1,7 @@
+Zadanie 1
+
+select AVG(waga) from kreatura where rodzaj = 'wiking';
+
+select rodzaj, AVG(waga) AS srednia_waga, COUNT(*) AS liczba_kreatur FROM kreatura GROUP BY rodzaj;
+
+select rodzaj, AVG(2024-YEAR(dataUr)) AS sredni_wiek from kreatura GROUP BY rodzaj;
