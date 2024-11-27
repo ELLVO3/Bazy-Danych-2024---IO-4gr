@@ -1,4 +1,4 @@
-Zadanie 1
+ Zadanie 1
 
 use wikingowie
 
@@ -39,5 +39,16 @@ Zadanie 4
 
 select distinct rodzaj from zasob;
 
+select CONCAT (nazwa, '-', rodzaj) as 'nazwa - rodzaj' from kreatura where rodzaj like '%wi';
 
+select nazwa, rodzaj, (ilosc * waga) as waga_calkowita from zasob where YEAR(datapozyskania) between 2000 and 2007;
+
+
+Zadanie 5
+
+select waga * 0.7 AS masa_netto, waga * 0.3 as masa_netto from zasob where rodzaj = 'jedzenie';
+
+select * from zasob where rodzaj IS NULL;
+
+select distinct nazwa from zasob where nazwa LIKE 'Ba%' or '%os' AND ORDER BY nazwa desc; (niedokończone)
 
