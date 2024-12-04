@@ -50,5 +50,5 @@ select waga * 0.7 AS masa_netto, waga * 0.3 as masa_netto from zasob where rodza
 
 select * from zasob where rodzaj IS NULL;
 
-select distinct nazwa from zasob where nazwa LIKE 'Ba%' or '%os' ORDER BY nazwa desc; (niedokończone)
+select distinct nazwa from zasob where nazwa LIKE 'Ba%' or '%os' ORDER BY nazwa desc;
 
