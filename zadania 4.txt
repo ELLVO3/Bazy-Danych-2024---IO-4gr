@@ -34,4 +34,6 @@ Zadanie 5
 
 select kreatura.rodzaj, AVG(zasob.waga) as srednia_waga_zasobow from kreatura JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu where kreatura.rodzaj not in ('kreatura.malpa', 'kreatura.waz') and ekwipunek.ilosc < 30 group by rodzaj;
 
-select rodzaj as nazwa_rodzaju, MIN(dataUr) as Najstarszy, MAX(dataUr) as Najmlodszy FROM kreatura group by rodzaj;
+select 'najstarsze' as typ, nazwa, dataUr, rodzaj FROM kreatura k WHERE dataUr = (select max(dataUr) FROM kreatura k1 WHERE k1.rodzaj = k.rodzaj)
+UNION ALL
+select 'najmlodsze' as typ, nazwa, dataUr, rodzaj FROM kreatura k WHERE dataUr = (select min(dataUr) FROM kreatura k1 WHERE k1.rodzaj = k.rodzaj);
