@@ -1,0 +1,24 @@
+lekcja 5
+
+Zadanie 1
+
+CREATE TABLE uczestnicy AS SELECT * FROM wikingowie.uczestnicy;
+Create Table etapy_wyprawy AS select * from wikingowie.etapy_wyprawy;
+Create Table sektor AS select * from wikingowie.sektor;
+Create Table wyprawa AS select * from wikingowie.wyprawa;
+CREATE TABLE kreatura1 AS SELECT * FROM wikingowie.kreatura;
+
+
+
+SELECT kreatura.nazwa from kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury = uczestnicy.id_uczestnika where uczestnicy.id_uczestnika is null;
+
+
+
+1. sposób --> SELECT wyprawa.nazwa, sum(ekwipunek.ilosc) AS suma_ilosci_ekwipunku FROM wyprawa, kreatura, uczestnicy, ekwipunek WHERE wyprawa.id_wyprawy = uczestnicy.id_wyprawy AND uczestnicy.id_uczestnika = kreatura.idKreatury AND kreatura.idKreatury = ekwipunek.idKreatury GROUP BY wyprawa.nazwa;
+
+(BETTER)
+
+2. sposób --> SELECT wyprawa.nazwa AS wyprawa, sum(ekwipunek.ilosc) as suma_ilosci_ekwipunku from wyprawa JOIN uczestnicy ON uczestnicy.id_wyprawy = wyprawa.id_wyprawy JOIN ekwipunek ON ekwipunek.idKreatury = uczestnicy.id_uczestnika group by wyprawa.nazwa;
+
+Zadanie 2
+
