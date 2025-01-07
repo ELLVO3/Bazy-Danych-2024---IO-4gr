@@ -1,5 +1,6 @@
 lekcja 5
 
+
 Zadanie 1
 
 CREATE TABLE uczestnicy AS SELECT * FROM wikingowie.uczestnicy;
@@ -18,7 +19,41 @@ SELECT kreatura.nazwa from kreatura LEFT JOIN uczestnicy ON kreatura.idKreatury 
 
 (BETTER)
 
-2. sposób --> SELECT wyprawa.nazwa AS wyprawa, sum(ekwipunek.ilosc) as suma_ilosci_ekwipunku from wyprawa JOIN uczestnicy ON uczestnicy.id_wyprawy = wyprawa.id_wyprawy JOIN ekwipunek ON ekwipunek.idKreatury = uczestnicy.id_uczestnika group by wyprawa.nazwa;
+2. sposób --> SELECT wyprawa.nazwa AS nazwa_wyprawy, sum(ekwipunek.ilosc) as suma_ilosci_ekwipunku from wyprawa JOIN uczestnicy ON uczestnicy.id_wyprawy = wyprawa.id_wyprawy JOIN ekwipunek ON ekwipunek.idKreatury = uczestnicy.id_uczestnika group by wyprawa.nazwa;
+
 
 Zadanie 2
+
+SELECT w.nazwa AS nazwa_wyprawy, COUNT(u.id_wyprawy) AS liczba_uczestnikow, GROUP_CONCAT(k.nazwa) AS nazwa_kreatury 
+FROM wyprawa w
+JOIN uczestnicy u ON u.id_wyprawy = w.id_wyprawy 
+JOIN kreatura k ON u.id_uczestnika = k.idKreatury group by w.nazwa;
+
+-----------------------------------------
+(liczba uczestników):
+SELECT wyprawa.nazwa AS nazwa_wyprawy, COUNT(uczestnicy.id_uczestnika) AS liczba_uczestnikow FROM wyprawa JOIN uczestnicy ON uczestnicy.id_wyprawy = wyprawa.id_wyprawy group by wyprawa.nazwa;
+
+(nazwa uczestników):
+SELECT kreatura.nazwa AS nazwa_kreatury FROM kreatura JOIN uczestnicy ON uczestnicy.id_uczestnika = kreatura.idKreatury;
+----------------------------------------
+
+SELECT e.idEtapu AS kolejnosc_etapow, s.nazwa AS nazwa_sektora, 
+w.data_rozpoczecia AS data_rozpoczecia_wyprawy, e.kolejnosc AS kolejnosc_etapu, w.kierownik AS kierownik_wyprawy 
+FROM etapy_wyprawy e
+JOIN sektor s ON e.sektor = s.id_sektora
+JOIN wyprawa w ON w.id_wyprawy = e.idWyprawy
+JOIN kreatura k ON w.kierownik = k.idKreatury
+ORDER BY w.kierownik ASC;
+
+SELECT e.idEtapu AS kolejnosc_etapow, s.nazwa AS nazwa_sektora, 
+w.data_rozpoczecia AS data_rozpoczecia_wyprawy, e.kolejnosc AS kolejnosc_etapu, w.kierownik AS kierownik_wyprawy 
+FROM etapy_wyprawy e
+JOIN sektor s ON e.sektor = s.id_sektora
+JOIN wyprawa w ON w.id_wyprawy = e.idWyprawy
+JOIN kreatura k ON w.kierownik = k.idKreatury
+ORDER BY w.data_rozpoczecia ASC;
+
+Zadnaie 3
+
+
 
