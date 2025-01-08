@@ -55,5 +55,51 @@ ORDER BY w.data_rozpoczecia ASC;
 
 Zadnaie 3
 
+SELECT s.nazwa AS nazwa_sektora, COUNT(w.id_wyprawy) AS ilosc_odwiedzin 
+FROM sektor s 
+LEFT JOIN wyprawa w ON s.id_sektora = w.id_wyprawy 
+GROUP BY s.nazwa;
+
+
+
+
+
+
+
+-------------------------------
+
+
+
+SELECT s.nazwa AS nazwa_sektora, COUNT(w.id_wyprawy) AS ilosc_odwiedzin 
+FROM sektor s 
+LEFT JOIN wyprawa w ON s.id_sektora = w.id_wyprawy 
+GROUP BY s.nazwa;
+
+
+ilość wypraw to id_wyprawy
+JOIN idKreatury = id_uczestnika
+
+SELECT COUNT(w.id_wyprawy) AS ilosc_wypraw, k.nazwa AS nazwa_kreatury, 
+IF(k.nazwa>0, 'bral_udzial_w_wyprawie', 'nie_bral_dzialu_w_wyprawie')
+FROM wyprawa w
+LEFT JOIN kreatura k ON u.id_uczestnika = k.idKreatury
+ORDER BY w.id_wyprawy;
+
+idKreatury = id_uczestnika
+
+
+
+
+
+
+SELECT COUNT(w.id_wyprawy) AS ilosc_wypraw, k.nazwa AS nazwa_kreatury, 
+IF(k.nazwa>0, 'bral_udzial_w_wyprawie', 'nie_bral_dzialu_w_wyprawie')
+FROM wyprawa w
+LEFT JOIN kreatura k ON u.id_uczestnika = k.idKreatury
+GROUP BY w.id_wyprawy;
+
+
+IF + THEN do tego
+
 
 
