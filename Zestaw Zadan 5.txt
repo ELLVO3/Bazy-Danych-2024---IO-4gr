@@ -27,7 +27,7 @@ Zadanie 2
 SELECT w.nazwa AS nazwa_wyprawy, COUNT(u.id_wyprawy) AS liczba_uczestnikow, GROUP_CONCAT(k.nazwa) AS nazwa_kreatury 
 FROM wyprawa w
 JOIN uczestnicy u ON u.id_wyprawy = w.id_wyprawy 
-JOIN kreatura k ON u.id_uczestnika = k.idKreatury group by w.nazwa;
+JOIN kreatura k ON u.id_uczestnika = k.idKreatury group by w.id_wyprawy, w.nazwa;
 
 -----------------------------------------
 (liczba uczestników):
@@ -61,45 +61,14 @@ LEFT JOIN wyprawa w ON s.id_sektora = w.id_wyprawy
 GROUP BY s.nazwa;
 
 
+SELECT k.nazwa AS nazwa_kreatury, CASE WHEN COUNT(u.id_wyprawy) > 0 THEN 'bral_udzial_w_wyprawie' ELSE 'nie_bral_udzialu_w_wyprawie' END AS status 
+FROM kreatura k 
+LEFT JOIN uczestnicy u ON k.idKreatury = u.id_uczestnika
+LEFT JOIN wyprawa w ON u.id_wyprawy = w.id_wyprawy
+GROUP BY k.nazwa;
 
 
+Zadanie 4
 
-
-
--------------------------------
-
-
-
-SELECT s.nazwa AS nazwa_sektora, COUNT(w.id_wyprawy) AS ilosc_odwiedzin 
-FROM sektor s 
-LEFT JOIN wyprawa w ON s.id_sektora = w.id_wyprawy 
-GROUP BY s.nazwa;
-
-
-ilość wypraw to id_wyprawy
-JOIN idKreatury = id_uczestnika
-
-SELECT COUNT(w.id_wyprawy) AS ilosc_wypraw, k.nazwa AS nazwa_kreatury, 
-IF(k.nazwa>0, 'bral_udzial_w_wyprawie', 'nie_bral_dzialu_w_wyprawie')
-FROM wyprawa w
-LEFT JOIN kreatura k ON u.id_uczestnika = k.idKreatury
-ORDER BY w.id_wyprawy;
-
-idKreatury = id_uczestnika
-
-
-
-
-
-
-SELECT COUNT(w.id_wyprawy) AS ilosc_wypraw, k.nazwa AS nazwa_kreatury, 
-IF(k.nazwa>0, 'bral_udzial_w_wyprawie', 'nie_bral_dzialu_w_wyprawie')
-FROM wyprawa w
-LEFT JOIN kreatura k ON u.id_uczestnika = k.idKreatury
-GROUP BY w.id_wyprawy;
-
-
-IF + THEN do tego
-
-
+SELECT wyprawa.nazwa, SUM(LENGTH(dziennik)) AS liczba_znakow FROM wyprawa JOIN etapy_wyprawy ON etapy_wyprawy.idWyprawy = wyprawa.id_wyprawy GROUP BY wyprawa.id_wyprawy, wyprawa.nazwa HAVING liczba_znakow < 400;
 
